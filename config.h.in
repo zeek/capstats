@@ -1,0 +1,2 @@
+/* We are on a Linux system */
+#undef HAVE_LINUX
