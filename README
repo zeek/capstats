@@ -59,6 +59,7 @@ Installation
 ------------
 
    > ./configure
+   > cd build
    > make install
    
 +capstats+ has been tested on Linux and FreeBSD.    
