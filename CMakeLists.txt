@@ -43,7 +43,16 @@ endif ()
 ########################################################################
 ## Dependency Configuration
 
-find_package(PCAP REQUIRED)
+include(FindRequiredPackage)
+FindRequiredPackage(PCAP)
+
+if (MISSING_PREREQS)
+    foreach (prereq ${MISSING_PREREQ_DESCS})
+        message(SEND_ERROR ${prereq})
+    endforeach ()
+    message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
+endif ()
+
 include_directories(BEFORE
                     ${PCAP_INCLUDE_DIR}
 )
