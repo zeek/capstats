@@ -21,18 +21,20 @@ file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION LIMIT_COUNT 1)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.cc.in
                ${CMAKE_CURRENT_BINARY_DIR}/version.cc)
 
-if (ENABLE_DEBUG AND ENABLE_RELEASE)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo)
-elseif (ENABLE_DEBUG AND NOT ENABLE_RELEASE)
+if (ENABLE_DEBUG)
     set(CMAKE_BUILD_TYPE Debug)
-elseif (NOT ENABLE_DEBUG AND ENABLE_RELEASE)
-    set(CMAKE_BUILD_TYPE Release)
+else ()
+    set(CMAKE_BUILD_TYPE RelWithDebInfo)
 endif ()
 
 # don't set extra compile flags again if already declared in this scope
 # (i.e. this project is included from Bro)
 if (NOT EXTRA_COMPILE_FLAGS)
     set(EXTRA_COMPILE_FLAGS "-Wall -Wno-unused")
+
+    if (ENABLE_DEBUG)
+        set(EXTRA_COMPILE_FLAGS "${EXTRA_COMPILE_FLAGS} -DDEBUG")
+    endif ()
 
     # Compiler flags may already exist in CMake cache (e.g. when specifying
     # CFLAGS environment variable before running cmake for the the first time)
@@ -80,7 +82,6 @@ message(
     "\n"
     "\nInstall prefix:    ${CMAKE_INSTALL_PREFIX}"
     "\nDebug mode:        ${ENABLE_DEBUG}"
-    "\nRelease mode:      ${ENABLE_RELEASE}"
     "\n"
     "\nCC:                ${CMAKE_C_COMPILER}"
     "\nCFLAGS:            ${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${BuildType}}"
