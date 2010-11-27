@@ -1,9 +1,5 @@
 
 0.13
-     
-     TODO: update README and man page.
-     TODO: option -p is not documented.
-
     - Do not output anything to syslog if not explicitly enabled.
     
     - New option -q <n> suppresses all normal output but exits with
