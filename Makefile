@@ -22,9 +22,8 @@ dist: configured
 distclean:
 	rm -rf $(BUILD)
 
-www: README
-	rst2html.py >README.html
-	cp README.html ~/www/capstats/index.html
+docs: README
+	rst2html.py README >README.html
 
 .PHONY : configured
 configured:
