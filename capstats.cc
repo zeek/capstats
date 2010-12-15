@@ -1,7 +1,7 @@
-// $Id: capstats.cc 6813 2009-07-07 18:54:12Z robin $
-// 
-// Counts captured packets. 
-// 
+// $Id$
+//
+// Counts captured packets.
+//
 // Robin Sommer <robin@icir.org>
 
 #include <stdlib.h>
@@ -30,7 +30,7 @@ extern char Version[];
 // Length of ERF Header before Ethernet header.
 # define DAG_ETH_ERFLEN 18
 # define EXTRA_WINDOW_SIZE (4 * 1024 * 1024)
-#endif 
+#endif
 
 bool CheckPayload = false;
 bool WritePackets = false;
@@ -46,6 +46,8 @@ int SnapLen = 8192;
 int NumberInts = 0;
 int UseSelect = false;
 unsigned int Size = 0;
+int Quiet = 0;
+
 pcap_dumper_t *Dumper;
 
 bool GotBreak = false;
@@ -99,9 +101,12 @@ const char* fmt_log(const char* prefix, const char* fmt, va_list ap)
 
 void logMsg(const char* msg)
 {
-    if (UseSyslog) 
+    if ( Quiet > 0 )
+        return;
+
+    if (UseSyslog)
         syslog(LOG_NOTICE, "%s", msg);
-    else 
+    else
         fprintf(stderr, "%.6f %s\n", current_time(), msg);
 }
 
@@ -131,7 +136,7 @@ void setFilter()
     if ( pcap_compile(Pcap, Bpf, (char*)Filter, 1, 0) < 0 )
         error("can't compile %s: %s", Filter, pcap_geterr(Pcap));
 
-    if ( pcap_setfilter(Pcap, Bpf) < 0 ) 
+    if ( pcap_setfilter(Pcap, Bpf) < 0 )
         error("can't set filter: %s", pcap_geterr(Pcap));
 }
 
@@ -145,7 +150,7 @@ void pcapOpen()
         error("%s", errbuf);
 
 #ifdef HAVE_LINUX
-    // Copied from Bro (we generally mimic how Bro is doing non-blocking i/o.)   
+    // Copied from Bro (we generally mimic how Bro is doing non-blocking i/o.)
     //    We use the smallest time-out possible to return almost immediately if
     //    no packets are available. (We can't use set_nonblocking() as it's
     //    broken on FreeBSD: even when select() indicates that we can read
@@ -182,7 +187,7 @@ bool pcapNext(const u_char **pkt, unsigned int *size)
 
         if ( select(fd + 1, &fd_read, 0, 0, &timeout) <= 0 ) {
             // Wait a bit to allow packets to arrive for next time.
-            // This might look a bit odd (i.e., we could use a larger timeout 
+            // This might look a bit odd (i.e., we could use a larger timeout
             // right away) but we try to mimic the way Bro operates.
             struct timeval timeout;
             timeout.tv_sec = 0;
@@ -222,7 +227,7 @@ void pcapStats(unsigned int* pkts, unsigned int* drops)
 
     if ( drops )
         *drops = stats.ps_drop;
-#else   
+#else
     static pcap_stat *last_stats = 0;
 
     if ( ! last_stats ) {
@@ -280,7 +285,7 @@ void dagOpen()
     if ( Filter )
         setFilter();
 
-#endif    
+#endif
 }
 
 bool dagNext(const u_char **pkt, unsigned int *size)
@@ -316,7 +321,7 @@ bool dagNext(const u_char **pkt, unsigned int *size)
 
 #else
     return false;
-#endif    
+#endif
 }
 
 void dagStats(unsigned int* pkts, unsigned int* drops, const Stats& s)
@@ -331,7 +336,7 @@ void dagClose()
     dag_stop_stream(Dag, 0);
     dag_detach_stream(Dag, 0);
     dag_close(Dag);
-#endif 
+#endif
 }
 
 void reportStats(const Stats& s)
@@ -392,14 +397,18 @@ void scheduleAlarm()
 
 void mainLoop()
 {
-    while ( ! GotBreak ) {        
+    while ( ! GotBreak ) {
 
         if ( GotAlarm ) {
             reportStats(Current);
             scheduleAlarm();
 
-            if ( NumberInts == 1 )
-                exit(0);
+            if ( NumberInts == 1 ) {
+                if ( Quiet > 0 )
+                    exit(Total.packets >= (unsigned)Quiet ? 0 : 1);
+                else
+                    exit(0);
+            }
 
             if ( NumberInts )
                 NumberInts--;
@@ -466,12 +475,16 @@ void usage()
     printf("capstats [Options] -i interface\n"
            "\n"
            "  -i| --interface <interface>    Listen on interface\n"
+#ifdef USE_DAG
            "  -d| --dag                      Use native DAG API\n"
+#endif
            "  -f| --filter <filter>          BPF filter\n"
            "  -I| --interval <secs>          Stats logging interval\n"
            "  -l| --syslog                   Use syslog rather than print to stderr\n"
            "  -n| --number <count>           Stop after outputting <number> intervals\n"
            "  -N| --select                   Use select() for live pcap (for testing only)\n"
+           "  -p| --payload <n>              Verifies that packets' payloads consist entirely of bytes of the given value.\n"
+           "  -q| --quiet <count>            Suppress output, exit code indicates >= count packets received.\n"
            "  -S| --size <size>              Verify packets to have given <size>\n"
            "  -s| --snaplen <size>           Use pcap snaplen = <size>\n"
            "  -v| --version                  Print version and exit\n"
@@ -482,7 +495,9 @@ void usage()
 }
 
 static struct option long_options[] = {
+#ifdef USE_DAG
     {"dag", no_argument, 0, 'd'},
+#endif
     {"filter", required_argument, 0, 'f'},
     {"interface", required_argument, 0, 'i'},
     {"interval", required_argument, 0, 'I'},
@@ -490,6 +505,7 @@ static struct option long_options[] = {
     {"select", no_argument, 0, 'N'},
     {"syslog", no_argument, 0, 'l'},
     {"payload", required_argument, 0, 'p'},
+    {"quiet", required_argument, 0, 'q'},
     {"size", required_argument, 0, 'S'},
     {"snaplen", required_argument, 0, 's'},
     {"version", no_argument, 0, 'v'},
@@ -500,7 +516,11 @@ static struct option long_options[] = {
 int main(int argc, char **argv)
 {
     while (1) {
-        char c = getopt_long (argc, argv, "df:i:I:n:Nps:lvw:S:", long_options, 0);
+#ifdef USE_DAG
+        char c = getopt_long (argc, argv, "df:i:I:n:Npq:s:lvw:S:", long_options, 0);
+#else
+        char c = getopt_long (argc, argv, "f:i:I:n:Npq:s:lvw:S:", long_options, 0);
+#endif
 
         if ( c == -1 )
             break;
@@ -539,6 +559,10 @@ int main(int argc, char **argv)
             Payload = atoi(optarg);
             break;
 
+          case 'q':
+            Quiet = atoi(optarg);
+            break;
+
           case 'S':
             CheckSize = true;
             Size = atoi(optarg);
@@ -569,17 +593,19 @@ int main(int argc, char **argv)
     if ( ! Interface )
         error("no interface given");
 
-    openlog("capstats", LOG_PID, LOG_NOTICE);
-    syslog(LOG_NOTICE, "starting if=%s interval=%d filter=%s", Interface, Interval, Filter);
+    if ( UseSyslog ) {
+        openlog("capstats", LOG_PID, LOG_NOTICE);
+        syslog(LOG_NOTICE, "starting if=%s interval=%d filter=%s", Interface, Interval, Filter);
+    }
 
-    if ( UseDag ) 
+    if ( UseDag )
         dagOpen();
-    else 
+    else
         pcapOpen();
 
     if ( WritePackets ) {
         Dumper = pcap_dump_open(Pcap, OutputFile);
-        if (not Dumper) 
+        if (not Dumper)
             error("can't open pcap dump file: %s", pcap_geterr(Pcap));
     }
 
@@ -588,21 +614,26 @@ int main(int argc, char **argv)
     scheduleAlarm();
 
     pcapStats(0, 0);
-    mainLoop();  
+    mainLoop();
 
     reportStats(Current);
     logMsg("\n=== Total\n");
     reportStats(Total);
 
-    if ( UseDag ) 
+    if ( UseDag )
         dagClose();
-    else 
+    else
         pcapClose();
 
-    if ( Dumper ) 
+    if ( Dumper )
         pcap_dump_close(Dumper);
 
-    syslog(LOG_NOTICE, "exiting...");
+    if ( UseSyslog )
+        syslog(LOG_NOTICE, "exiting...");
+
+    if ( Quiet > 0 )
+        return Total.packets >= (unsigned)Quiet ? 0 : 1;
+
     return 0;
     }
 
