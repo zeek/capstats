@@ -110,7 +110,7 @@ add_executable(capstats
                capstats.cc
                ${CMAKE_CURRENT_BINARY_DIR}/version.cc)
 
-target_link_libraries(capstats pcap)
+target_link_libraries(capstats ${PCAP_LIBRARY})
 
 install(TARGETS capstats DESTINATION bin)
 
