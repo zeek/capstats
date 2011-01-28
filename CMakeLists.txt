@@ -55,6 +55,7 @@ endif ()
 ########################################################################
 ## Dependency Configuration
 
+include(MacDependencyPaths)
 include(FindRequiredPackage)
 FindRequiredPackage(PCAP)
 
@@ -112,3 +113,17 @@ add_executable(capstats
 target_link_libraries(capstats pcap)
 
 install(TARGETS capstats DESTINATION bin)
+
+########################################################################
+## Show warning when installing user is different from the one that configured
+
+install(CODE "
+    if (NOT $ENV{USER} STREQUAL \$ENV{USER})
+        message(STATUS \"ATTENTION: Install is being performed by user \"
+                \"'\$ENV{USER}', but the build directory was configured by \"
+                \"user '$ENV{USER}'. This may result in a permissions error \"
+                \"when writing the install manifest, but you can ignore it \"
+                \"and consider the installation as successful if you don't \"
+                \"care about the install manifest.\")
+    endif ()
+")

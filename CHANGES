@@ -1,26 +1,38 @@
+0.14 | 2011-01-28 11:09:04 -0800
+
+  * Fix for compiling on OpenBSD and NetBSD. (Kevin Lo)
+
+  * Converting README from AsciiDoc to REST. (Robin Sommer)
+
+  * Ported to CMake. (Jon Siwek)
+
+  * New CHANGES format.
 
 0.13
-    - Do not output anything to syslog if not explicitly enabled.
+  * Do not output anything to syslog if not explicitly enabled.
     
-    - New option -q <n> suppresses all normal output but exits with
+  * New option -q <n> suppresses all normal output but exits with
     status code 0 if at least n packets have been received, and 1
     otherwise. 
 
 0.12
-    - New option --select/-N which for live pcap input uses select()
-    to check for new packets. This is primarily for testing purposes
-    and shouldn't produce any different results. The code mimics
-    pretty closely how the Bro NIDS uses select() on pcap file
-    handles.
-    
-    - Fix disabling option -d when compiled without DAG support. (Justin Azoff)
-    
-    - autotools compatibility fixes. 
 
-    - Man page contributed by Justin Azoff.
-
+  * New option --select/-N which for live pcap input uses select() to
+    check for new packets. This is primarily for testing purposes and
+    shouldn't produce any different results. The code mimics pretty
+    closely how the Bro NIDS uses select() on pcap file handles.
+    
+  * Fix disabling option -d when compiled without DAG support. (Justin
+    Azoff)
+    
+  * autotools compatibility fixes. 
+    
+  * Man page contributed by Justin Azoff.
+    
 0.11
-    - Fixed potential segfault.
 
+  * Fixed potential segfault.
+    
 0.1	
-    - Initial release
+
+  * Initial release

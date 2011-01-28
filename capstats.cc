@@ -4,6 +4,8 @@
 //
 // Robin Sommer <robin@icir.org>
 
+#include <sys/types.h>
+#include <sys/socket.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
@@ -11,8 +13,16 @@
 #include <string.h>
 #include <pcap.h>
 #include <errno.h>
-#include <net/ethernet.h>
 #include <netinet/in.h>
+#include <net/if.h>
+#include <net/if_arp.h>
+#if defined(__OpenBSD__)
+#include <netinet/if_ether.h>
+#elif defined(__NetBSD__)
+#include <net/if_ether.h>
+#else
+#include <net/ethernet.h>
+#endif
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
 #include <signal.h>
