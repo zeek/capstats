@@ -1,3 +1,7 @@
+0.14-2 | 2011-02-01 12:38:34 -0800
+
+  * Linking directly to the found pcap library. (Jon Siwek)
+
 0.14 | 2011-01-28 11:09:04 -0800
 
   * Fix for compiling on OpenBSD and NetBSD. (Kevin Lo)
