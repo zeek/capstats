@@ -1,4 +1,8 @@
-project(capstats)
+project(capstats CXX)
+
+if (NOT CMAKE_CXX_COMPILER)
+    message(FATAL_ERROR "Could not find prerequisite C++ compiler")
+endif ()
 
 ########################################################################
 ## CMake Configuration
@@ -94,8 +98,6 @@ message(
     "\nInstall prefix:    ${CMAKE_INSTALL_PREFIX}"
     "\nDebug mode:        ${ENABLE_DEBUG}"
     "\n"
-    "\nCC:                ${CMAKE_C_COMPILER}"
-    "\nCFLAGS:            ${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_${BuildType}}"
     "\nCXX:               ${CMAKE_CXX_COMPILER}"
     "\nCXXFLAGS:          ${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_${BuildType}}"
     "\nCPP:               ${CMAKE_CXX_COMPILER}"

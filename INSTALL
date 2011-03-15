@@ -4,10 +4,12 @@ Prerequisites
 capstats relies on the following libraries and tools, which need to be
 installted before you begin:
 
+    * A C++ compiler
+
     * Libpcap headers and libraries
        Network traffic capture library
 
-    * CMake 2.8 or greater
+    * CMake 2.6 or greater
        CMake is a cross-platform, open-source build system, typically
        not installed by default.  See http://www.cmake.org for more
        information regarding CMake and the installation steps below for
