@@ -79,7 +79,7 @@ struct Stats {
     Stats() { clear(); }
 
     void clear() {
-        memset(proto, sizeof(proto), 0);
+        memset(proto, 0, sizeof(proto));
         packets = bytes = size_mismatches = payload_mismatches = non_ip = 0;
         dag_drops = dag_all = 0;
         start = current_time();
