@@ -82,16 +82,15 @@ A list of all options::
 Download
 --------
 
-Download `capstats-0.13.tar.gz` <http://www.icir.org/robin/capstats/capstats-0.13.tar.gz>`_
+Download the ``capstats`` git repository like::
+
+    > git clone git://git.bro-ids.org/capstats
+
+Or if you don't have git, the `latest snapshot <http://git.bro-ids.org/capstats.git/snapshot/HEAD.tar.gz>`_.
 
 Installation
 ------------
 
-::
-
-   > ./configure
-   > cd build
-   > make install
-
 ``capstats`` has been tested on Linux, FreeBSD, and MacOS. 
 
+Please see the INSTALL file for installation instructions.
