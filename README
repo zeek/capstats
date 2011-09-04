@@ -1,11 +1,12 @@
 ..	-*- mode: rst -*-
 
+.. Version number is filled in automatically.
+.. |version| replace:: 0.14-14
+
 capstats - A quick hack to get some NIC statistics.
 ===================================================
 
-.. |today| date::
-
-Date: |today|
+:Version: |version|
 
 .. contents::
 
