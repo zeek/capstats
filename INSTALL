@@ -2,7 +2,7 @@ Prerequisites
 =============
 
 capstats relies on the following libraries and tools, which need to be
-installted before you begin:
+installed before you begin:
 
     * A C++ compiler
 
@@ -22,7 +22,6 @@ Installation
 To build and install into /usr/local:
 
     > ./configure
-    > cd build
     > make
     > make install
 
