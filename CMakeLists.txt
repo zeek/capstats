@@ -1,4 +1,4 @@
-project(capstats CXX)
+project(capstats C CXX)
 
 if (NOT CMAKE_CXX_COMPILER)
     message(FATAL_ERROR "Could not find prerequisite C++ compiler")
