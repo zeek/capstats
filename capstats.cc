@@ -1,5 +1,3 @@
-// $Id$
-//
 // Counts captured packets.
 //
 // Robin Sommer <robin@icir.org>
