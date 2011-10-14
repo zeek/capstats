@@ -1,4 +1,20 @@
 
+0.15 | 2011-10-17 18:08:50 -0700
+
+  * Release v0.15.
+
+0.14-26 | 2011-10-14 15:09:34 -0700
+
+  * Distribution cleanup. (Robin Sommer)
+
+0.14-25 | 2011-10-14 15:06:20 -0700
+
+  * Distribution cleanup. (Jon Siwek and Robin Sommer)
+
+  * config.h wasn't being configured by CMake correctly (Jon Siwek)
+
+  * Adding 'C' language to CMake project as some configure checks depend on it. (Jon Siwek)
+
 0.14-14 | 2011-09-04 08:55:48 -0700
 
   * FindPCAP now links against thread library when necessary (e.g.
@@ -32,10 +48,10 @@
 
 0.13
   * Do not output anything to syslog if not explicitly enabled.
-    
+
   * New option -q <n> suppresses all normal output but exits with
     status code 0 if at least n packets have been received, and 1
-    otherwise. 
+    otherwise.
 
 0.12
 
@@ -43,18 +59,18 @@
     check for new packets. This is primarily for testing purposes and
     shouldn't produce any different results. The code mimics pretty
     closely how the Bro NIDS uses select() on pcap file handles.
-    
+
   * Fix disabling option -d when compiled without DAG support. (Justin
     Azoff)
-    
-  * autotools compatibility fixes. 
-    
+
+  * autotools compatibility fixes.
+
   * Man page contributed by Justin Azoff.
-    
+
 0.11
 
   * Fixed potential segfault.
-    
-0.1	
+
+0.1
 
   * Initial release

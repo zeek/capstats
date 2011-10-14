@@ -1,26 +1,41 @@
-..	-*- mode: rst -*-
-
+..	-*- mode: rst-mode -*-
+..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.14-14
+.. |version| replace:: 0.15
 
-capstats - A quick hack to get some NIC statistics.
-===================================================
+===============================================
+capstats - A tool to get some NIC statistics.
+===============================================
 
-:Version: |version|
+.. class:: opening
 
-.. contents::
+    capstats is a small tool to collect statistics on the
+    current load of a network interface, using either `libpcap
+    <http://www.tcpdump.org>`_ or the native interface for `Endace's
+    <http:///www.endace.com>`_. It reports statistics per time interval
+    and/or for the tool's total run-time.
 
-Overview
+Download
 --------
 
-``capstats`` is a quick hack to get some statistics about the
-current load on a network interface, using either `libpcap
-<http://www.tcpdump.org>`_ or the native interface for `Endace's
-<http:///www.endace.com>`_. It reports statistics per time interval
-and/or for the tool's total run-time.
+You can find the latest capstats release for download at
+http://www.bro-ids.org/download.
+
+Capstats's git repository is located at `git://git.bro-ids.org/capstats.git
+<git://git.bro-ids.org/capstats.git>`__. You can browse the repository
+`here <http://git.bro-ids.org/capstats.git>`__.
+
+This document describes capstats |version|. See the `CHANGES
+<{{git('capstats:CHANGES')}}>`__ file for version history.
+
+
+Output
+------
 
 Here's an example output with output in one-second intervals until
-``CTRL-C`` is hit::
+``CTRL-C`` is hit:
+
+.. console::
 
     >capstats -i nve0 -I 1
     1186620936.890567 pkts=12747 kpps=12.6 kbytes=10807 mbps=87.5 nic_pkts=12822 nic_drops=0 u=960 t=11705 i=58 o=24 nonip=0
@@ -62,6 +77,9 @@ Each line starts with a timestamp and the other fields are:
     :nonip:
         Number of non-IP packets.
 
+Options
+-------
+
 A list of all options::
 
     capstats [Options] -i interface
@@ -73,25 +91,17 @@ A list of all options::
        -l| --syslog                   Use syslog rather than print to stderr
        -n| --number <count>           Stop after outputting <number> intervals
        -N| --select                   Use select() for live pcap (for testing only)
-       -p| --payload <n>              Verifies that packets' payloads consist entirely of bytes of the given value.
-       -q| --quiet <count>            Suppress output, exit code indicates >= count packets received.
+       -p| --payload <n>              Verifies that packets' payloads consist
+                                      entirely of bytes of the given value.
+       -q| --quiet <count>            Suppress output, exit code indicates >= count
+                                      packets received.
        -S| --size <size>              Verify packets to have given <size>
        -s| --snaplen <size>           Use pcap snaplen <size>
        -v| --version                  Print version and exit
        -w| --write <filename>         Write packets to file
 
-Download
---------
-
-Download the ``capstats`` git repository like::
-
-    > git clone git://git.bro-ids.org/capstats
-
-Or if you don't have git, the `latest snapshot <http://git.bro-ids.org/capstats.git/snapshot/HEAD.tar.gz>`_.
-
 Installation
 ------------
 
-``capstats`` has been tested on Linux, FreeBSD, and MacOS. 
-
-Please see the INSTALL file for installation instructions.
+``capstats`` has been tested on Linux, FreeBSD, and MacOS. Please see
+the ``INSTALL`` file for installation instructions.
