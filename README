@@ -7,7 +7,7 @@
 capstats - A tool to get some NIC statistics.
 ===============================================
 
-.. class:: opening
+.. rst-class:: opening
 
     capstats is a small tool to collect statistics on the
     current load of a network interface, using either `libpcap
@@ -25,8 +25,8 @@ Capstats's git repository is located at `git://git.bro-ids.org/capstats.git
 <git://git.bro-ids.org/capstats.git>`__. You can browse the repository
 `here <http://git.bro-ids.org/capstats.git>`__.
 
-This document describes capstats |version|. See the `CHANGES
-<{{git('capstats:CHANGES')}}>`__ file for version history.
+This document describes capstats |version|. See the ``CHANGES``
+file for version history.
 
 
 Output
