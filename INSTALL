@@ -9,7 +9,7 @@ installed before you begin:
     * Libpcap headers and libraries
        Network traffic capture library
 
-    * CMake 2.6 or greater
+    * CMake 2.6.3 or greater
        CMake is a cross-platform, open-source build system, typically
        not installed by default.  See http://www.cmake.org for more
        information regarding CMake and the installation steps below for
