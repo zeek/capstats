@@ -1,4 +1,8 @@
 
+0.17 | 2012-07-05 12:53:52 -0700
+
+  * Raise minimum required CMake version to 2.6.3 (Jon Siwek)
+
 0.16 | 2012-01-09 16:11:02 -0800
 
   * Submodule README conformity changes. (Jon Siwek)
