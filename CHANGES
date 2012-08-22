@@ -1,4 +1,8 @@
 
+0.18 | 2012-08-01 13:57:19 -0500
+
+  * Fix configure script to exit with non-zero status on error (Jon Siwek)
+
 0.17 | 2012-07-05 12:53:52 -0700
 
   * Raise minimum required CMake version to 2.6.3 (Jon Siwek)
