@@ -19,11 +19,11 @@ Download
 --------
 
 You can find the latest capstats release for download at
-http://www.bro-ids.org/download.
+http://www.bro.org/download.
 
-Capstats's git repository is located at `git://git.bro-ids.org/capstats.git
-<git://git.bro-ids.org/capstats.git>`__. You can browse the repository
-`here <http://git.bro-ids.org/capstats.git>`__.
+Capstats's git repository is located at `git://git.bro.org/capstats.git
+<git://git.bro.org/capstats.git>`__. You can browse the repository
+`here <http://git.bro.org/capstats.git>`__.
 
 This document describes capstats |version|. See the ``CHANGES``
 file for version history.
