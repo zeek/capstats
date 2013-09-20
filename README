@@ -51,7 +51,7 @@ Each line starts with a timestamp and the other fields are:
         Absolute number of packets seen by ``capstats`` during interval.
 
     :kpps:
-        Number of packets per second.
+        Number of thousands of packets per second.
 
     :kbytes:
         Absolute number of KBytes during interval.
@@ -60,7 +60,7 @@ Each line starts with a timestamp and the other fields are:
         Mbits/sec.
 
     :nic_pkts:
-        Number of packets as reported by ``libpcap``'s ``pcap_stats()`` (may not match _pkts_)
+        Number of packets as reported by ``libpcap``'s ``pcap_stats()`` (may not match **pkts**)
 
     :nic_drops:
         Number of packet drops as reported by ``libpcap``'s ``pcap_stats()``.
@@ -73,6 +73,9 @@ Each line starts with a timestamp and the other fields are:
 
     :i:
         Number of ICMP packets.
+
+    :o:
+        Number of IP packets with protocol other than TCP, UDP, and ICMP.
 
     :nonip:
         Number of non-IP packets.
