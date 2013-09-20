@@ -1,4 +1,10 @@
 
+0.19 | 2013-09-12 12:32:07 -0500
+
+  * Switching to relative submodule paths. (Robin Sommer)
+
+  * s/bro-ids.org/bro.org/g. (Robin Sommer)
+
 0.18 | 2012-08-01 13:57:19 -0500
 
   * Fix configure script to exit with non-zero status on error (Jon Siwek)
