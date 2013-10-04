@@ -525,9 +525,9 @@ int main(int argc, char **argv)
 {
     while (1) {
 #ifdef USE_DAG
-        char c = getopt_long (argc, argv, "df:i:I:n:Npq:s:lvw:S:", long_options, 0);
+        int c = getopt_long (argc, argv, "df:i:I:n:Npq:s:lvw:S:", long_options, 0);
 #else
-        char c = getopt_long (argc, argv, "f:i:I:n:Npq:s:lvw:S:", long_options, 0);
+        int c = getopt_long (argc, argv, "f:i:I:n:Npq:s:lvw:S:", long_options, 0);
 #endif
 
         if ( c == -1 )
