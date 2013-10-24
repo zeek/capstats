@@ -1,4 +1,8 @@
 
+0.20 | 2013-10-14 09:24:55 -0700
+
+  * Release.
+
 0.19-4 | 2013-10-07 17:07:40 -0700
 
   * Fix getopt_long() usage. (Daniel Thayer)
