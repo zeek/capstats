@@ -517,7 +517,7 @@ static struct option long_options[] = {
     {"size", required_argument, 0, 'S'},
     {"snaplen", required_argument, 0, 's'},
     {"version", no_argument, 0, 'v'},
-    {"write", required_argument, 0, 's'},
+    {"write", required_argument, 0, 'w'},
     {0, 0, 0, 0}
 };
 
@@ -525,9 +525,9 @@ int main(int argc, char **argv)
 {
     while (1) {
 #ifdef USE_DAG
-        int c = getopt_long (argc, argv, "df:i:I:n:Npq:s:lvw:S:", long_options, 0);
+        int c = getopt_long (argc, argv, "df:i:I:n:Np:q:s:lvw:S:", long_options, 0);
 #else
-        int c = getopt_long (argc, argv, "f:i:I:n:Npq:s:lvw:S:", long_options, 0);
+        int c = getopt_long (argc, argv, "f:i:I:n:Np:q:s:lvw:S:", long_options, 0);
 #endif
 
         if ( c == -1 )

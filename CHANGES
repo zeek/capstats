@@ -1,4 +1,8 @@
 
+0.24-2 | 2016-12-24 11:06:37 +0100
+
+  * Fix the "-p" and "--write" command-line options. (Daniel Thayer)
+
 0.24 | 2016-10-27 14:43:34 -0700
 
   * Release 0.24.
