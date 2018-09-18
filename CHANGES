@@ -1,4 +1,8 @@
 
+0.26 | 2018-08-31 15:26:46 -0500
+
+  * Improve `make dist` (Jon Siwek, Corelight)
+
 0.25-5 | 2018-05-15 15:37:19 +0000
 
   * Updating submodule.
