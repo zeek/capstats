@@ -1,4 +1,10 @@
 
+0.26-2 | 2018-12-07 16:29:44 -0600
+
+  * Update github/download link (Jon Siwek, Corelight)
+
+  * Update submodules to use github.com/zeek (Jon Siwek, Corelight)
+
 0.26 | 2018-08-31 15:26:46 -0500
 
   * Improve `make dist` (Jon Siwek, Corelight)
