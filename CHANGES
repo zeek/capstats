@@ -1,4 +1,10 @@
 
+0.30 | 2020-12-07 18:26:38 +0000
+
+  * Release 0.30
+
+  * Remove unnecessary files. (Johanna Amann, Corelight)
+
 0.29-6 | 2020-12-02 11:09:23 -0800
 
   * Update minimum required CMake to 3.5 (Jon Siwek, Corelight)

@@ -1,7 +1,7 @@
 ..	-*- mode: rst-mode -*-
 ..
 .. Version number is filled in automatically.
-.. |version| replace:: 0.29-6
+.. |version| replace:: 0.30
 
 ===============================================
 capstats - A tool to get some NIC statistics.
