@@ -1,3 +1,7 @@
+0.31 | 2022-06-01 09:30:14 -0700
+  
+  * Release 0.31
+
 0.30-6 | 2022-01-27 14:50:07 -0700
 
   * Have `make dist` cleanup a few more wayward files before tarring (Tim Wojtulewicz, Corelight)
