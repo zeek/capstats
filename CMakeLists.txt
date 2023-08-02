@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(capstats C CXX)
 include(cmake/CommonCMakeConfig.cmake)
 
@@ -9,15 +9,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.cc.in
 ########################################################################
 ## Dependency Configuration
 
-include(FindRequiredPackage)
-FindRequiredPackage(PCAP)
-
-if (MISSING_PREREQS)
-    foreach (prereq ${MISSING_PREREQ_DESCS})
-        message(SEND_ERROR ${prereq})
-    endforeach ()
-    message(FATAL_ERROR "Configuration aborted due to missing prerequisites")
-endif ()
+find_package(PCAP REQUIRED)
 
 include_directories(BEFORE
                     ${PCAP_INCLUDE_DIR}
