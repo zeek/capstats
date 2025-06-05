@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
 project(capstats C CXX)
 include(cmake/CommonCMakeConfig.cmake)
+include(cmake/RequireCXXStd.cmake)
 
 file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION" VERSION LIMIT_COUNT 1)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.cc.in
